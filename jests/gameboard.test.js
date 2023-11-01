@@ -30,6 +30,42 @@ describe("Gameboard", () => {
     expect(gameboard.board[1][1].shipName).toBe(null);
     expect(gameboard.placedShips[0]).toBe(undefined);
   });
+
+  test("ship object updates with a hit", () => {
+    gameboard.placeShip("cargo", 4, [1, 1], true);
+    gameboard.receiveAttack([1, 1]);
+    expect(gameboard.placedShips[0].hits).toBe(1);
+  });
+
+  test("board array updates with a ship hit", () => {
+    gameboard.placeShip("cargo", 4, [1, 1], true);
+    gameboard.receiveAttack([1, 1]);
+    expect(gameboard.board[1][1].hit).toBe(true);
+  });
+
+  test("board array updates with a blank hit", () => {
+    gameboard.receiveAttack([1, 1]);
+    expect(gameboard.board[1][1].hit).toBe(true);
+  });
+
+  test("returns true when all ships sunk", () => {
+    gameboard.placeShip("cargo", 4, [1, 1], true);
+    gameboard.receiveAttack([1, 1]);
+    gameboard.receiveAttack([2, 1]);
+    gameboard.receiveAttack([3, 1]);
+    gameboard.receiveAttack([4, 1]);
+    expect(gameboard.allShipsSunk()).toBe(true);
+  });
+
+  test("returns false when all ships not sunk", () => {
+    gameboard.placeShip("destroyer", 2, [5, 5], true);
+    gameboard.placeShip("cargo", 4, [1, 1], true);
+    gameboard.receiveAttack([1, 1]);
+    gameboard.receiveAttack([2, 1]);
+    gameboard.receiveAttack([3, 1]);
+    gameboard.receiveAttack([4, 1]);
+    expect(gameboard.allShipsSunk()).toBe(false);
+  });
 });
 
 // describe("Gameboard Private Functions", () => {

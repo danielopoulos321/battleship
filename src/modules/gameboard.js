@@ -7,8 +7,22 @@ export default class Gameboard {
 
   placedShips = [];
 
-  receiveAttack(coords) {}
-  //  If location has name of ship, hit status is true and ship.hit()
+  receiveAttack(coords) {
+    const x = coords[0];
+    const y = coords[1];
+
+    if (this.board[x][y].shipName !== null && this.board[x][y].hit === false) {
+      this.board[x][y] = { ...this.board[x][y], hit: true };
+      this.placedShips
+        .find((ship) => ship.shipName === this.board[x][y].shipName)
+        .hit();
+    } else if (
+      this.board[x][y].shipName === null &&
+      this.board[x][y].hit === false
+    ) {
+      this.board[x][y] = { ...this.board[x][y], hit: true };
+    }
+  }
 
   placeShip(shipName, length, coords, horizontal) {
     const x = coords[0];
@@ -55,5 +69,9 @@ export default class Gameboard {
     }
 
     return true;
+  }
+
+  allShipsSunk() {
+    return this.placedShips.every((ship) => ship.length === ship.hits);
   }
 }
