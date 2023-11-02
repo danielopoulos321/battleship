@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "webpack",
+    "watch": "webpack --watch",
+    "pages": "git subtree push --prefix dist origin gh-pages"
   },
   "repository": {
     "type": "git",
