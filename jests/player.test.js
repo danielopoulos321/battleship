@@ -24,4 +24,17 @@ describe("Player", () => {
     player2.attack(player1, [1, 1]);
     expect(player1.gameboard.board[1][1].hit).toBe(true);
   });
+
+  test("pc attacks other player", () => {
+    player2.pcAttack(player1);
+    let hit = false;
+    for (let i = 0; i < 10; i += 1) {
+      for (let j = 0; j < 10; j += 1) {
+        if (player1.gameboard.board[i][j].hit) {
+          hit = true;
+        }
+      }
+    }
+    expect(hit).toBe(true);
+  });
 });
