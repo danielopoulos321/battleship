@@ -37,4 +37,9 @@ describe("Player", () => {
     }
     expect(hit).toBe(true);
   });
+
+  test("generates random pc fleet", () => {
+    player2.pcGenerateFleet();
+    expect(player2.gameboard.placedShips.length).toBe(4);
+  });
 });

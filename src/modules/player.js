@@ -28,6 +28,22 @@ export default class Player {
     this.attack(player, coords);
   }
 
+  pcGenerateFleet() {
+    this.generateShip("destroyer", 4);
+    this.generateShip("cargo", 3);
+    this.generateShip("cruiser", 2);
+    this.generateShip("tugboat", 2);
+  }
+
+  generateShip(shipName, length) {
+    let success = false;
+    while (!success) {
+      const direction = Math.random() < 0.5;
+      const coords = this.randomPos();
+      success = this.gameboard.placeShip(shipName, length, coords, direction);
+    }
+  }
+
   // eslint-disable-next-line class-methods-use-this
   randomPos() {
     const x = Math.floor(Math.random() * 10);
