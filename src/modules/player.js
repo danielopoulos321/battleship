@@ -15,17 +15,22 @@ export default class Player {
     player.takeTurn();
   }
 
+  // eslint-disable-next-line class-methods-use-this
   attack(player, coords) {
-    let success = false;
-    while (!success) {
+    let success = -1;
+    while (success < 0) {
       success = player.gameboard.receiveAttack(coords);
     }
-    this.endTurn(player);
+    return success;
   }
 
   pcAttack(player) {
-    const coords = this.randomPos();
-    this.attack(player, coords);
+    let success = -1;
+    while (success < 0) {
+      const coords = this.randomPos();
+      success = player.gameboard.receiveAttack(coords);
+    }
+    return success;
   }
 
   pcGenerateFleet() {
