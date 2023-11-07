@@ -16,15 +16,14 @@ export default class Gameboard {
       this.placedShips
         .find((ship) => ship.shipName === this.board[x][y].shipName)
         .hit();
-      return true;
+      return 1; //  1 for hit
     }
 
     if (this.board[x][y].shipName === null && this.board[x][y].hit === false) {
       this.board[x][y] = { ...this.board[x][y], hit: true };
-      return true;
+      return 0; //  0 for miss
     }
-
-    return false;
+    return -1;
   }
 
   placeShip(shipName, length, coords, horizontal) {
