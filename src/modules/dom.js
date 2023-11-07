@@ -9,7 +9,18 @@ function playerRender(player1) {
     } else {
       [x, y] = pos.split("");
     }
-    if (player1.gameboard.board[x][y].shipName) {
+    if (
+      !player1.gameboard.board[x][y].shipName &&
+      player1.gameboard.board[x][y].hit
+    ) {
+      e.classList.add("miss");
+    }
+    if (
+      player1.gameboard.board[x][y].shipName &&
+      player1.gameboard.board[x][y].hit
+    ) {
+      e.classList.add("ship-hit");
+    } else if (player1.gameboard.board[x][y].shipName) {
       e.classList.add("ship");
     }
   });
@@ -35,9 +46,27 @@ function enemyRender(player2) {
       !player2.gameboard.board[x][y].shipName &&
       player2.gameboard.board[x][y].hit
     ) {
-      e.classList.add("no-hit");
+      e.classList.add("miss");
     }
   });
+}
+
+function renderComputerAttack(player1, player2) {
+  let switchTurn = 1;
+  while (switchTurn === 1) {
+    switchTurn = player2.pcAttack(player1);
+    playerRender(player1);
+  }
+  player2.endTurn(player1);
+}
+
+function renderPlayerAttack(player1, player2, x, y) {
+  const switchTurn = player1.attack(player2, [x, y]);
+  enemyRender(player2);
+  if (switchTurn === 0) {
+    player1.endTurn(player2);
+    renderComputerAttack(player1, player2);
+  }
 }
 
 export default function boardRender(player1, player2) {
@@ -72,9 +101,9 @@ export default function boardRender(player1, player2) {
       cell.clicked = false;
 
       cell.addEventListener("click", () => {
+        if (!player1.turn) return;
         if (!cell.clicked) {
-          player1.attack(player2, [i, j]);
-          enemyRender(player2);
+          renderPlayerAttack(player1, player2, i, j);
           cell.clicked = true;
         }
       });
