@@ -1,0 +1,45 @@
+body{
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+#boards{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    height: 100%;
+}
+
+#board1, #board2{
+    margin: 1em;
+    border: 1px solid black;
+}
+
+.row{
+    display: flex;
+}
+
+.cell-p1,
+.cell-p2{
+    width: 30px;
+    height: 30px;
+    border: 1px solid black;
+}
+
+.cell-p2:hover{
+    background-color: grey;
+}
+
+.ship{
+    background-color: black;
+}
+
+.ship-hit{
+    background-color: red;
+}
+
+.no-hit{
+    background-color: aqua;
+}
