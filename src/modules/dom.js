@@ -51,11 +51,26 @@ function enemyRender(player2) {
   });
 }
 
-function renderComputerAttack(player1, player2) {
+function checkWin(player) {
+  const result = player.gameboard.placedShips.every((ship) => ship.isSunk());
+  console.log(result);
+}
+
+function delay(ms) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(2);
+    }, ms);
+  });
+}
+
+async function renderComputerAttack(player1, player2) {
+  await delay(700);
   let switchTurn = 1;
   while (switchTurn === 1) {
     switchTurn = player2.pcAttack(player1);
     playerRender(player1);
+    checkWin(player1);
   }
   player2.endTurn(player1);
 }
@@ -63,6 +78,7 @@ function renderComputerAttack(player1, player2) {
 function renderPlayerAttack(player1, player2, x, y) {
   const switchTurn = player1.attack(player2, [x, y]);
   enemyRender(player2);
+  checkWin(player2);
   if (switchTurn === 0) {
     player1.endTurn(player2);
     renderComputerAttack(player1, player2);
@@ -70,7 +86,6 @@ function renderPlayerAttack(player1, player2, x, y) {
 }
 
 export default function boardRender(player1, player2) {
-  //  give each div the appropriate x,y values
   for (let i = 0; i < 10; i += 1) {
     const row = document.createElement("div");
     row.classList.add("row");
