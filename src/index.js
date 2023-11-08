@@ -1,3 +1,3 @@
-import initGame from "./modules/game";
+import boardRender from "./modules/dom";
 
-initGame();
+boardRender();

@@ -1,3 +1,5 @@
+import initGame from "./game";
+
 function playerRender(player1) {
   document.querySelectorAll(".cell-p1").forEach((e, j) => {
     let x;
@@ -51,9 +53,25 @@ function enemyRender(player2) {
   });
 }
 
+function renderWinner() {
+  const modal = document.querySelector("[data-modal");
+  const restart = document.getElementById("restart");
+  const board1 = document.getElementById("board1");
+  const board2 = document.getElementById("board2");
+  restart.addEventListener("click", () => {
+    modal.close();
+    board1.innerHTML = "";
+    board2.innerHTML = "";
+    // eslint-disable-next-line no-use-before-define
+    boardRender();
+  });
+  modal.showModal();
+}
+
 function checkWin(player) {
-  const result = player.gameboard.placedShips.every((ship) => ship.isSunk());
-  console.log(result);
+  if (player.gameboard.placedShips.every((ship) => ship.isSunk())) {
+    renderWinner();
+  }
 }
 
 function delay(ms) {
@@ -85,7 +103,10 @@ function renderPlayerAttack(player1, player2, x, y) {
   }
 }
 
-export default function boardRender(player1, player2) {
+export default function boardRender() {
+  const players = initGame();
+  const player1 = players.player;
+  const player2 = players.computer;
   for (let i = 0; i < 10; i += 1) {
     const row = document.createElement("div");
     row.classList.add("row");
