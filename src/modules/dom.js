@@ -53,11 +53,13 @@ function enemyRender(player2) {
   });
 }
 
-function renderWinner() {
+function renderWinner(player) {
   const modal = document.querySelector("[data-modal");
   const restart = document.getElementById("restart");
   const board1 = document.getElementById("board1");
   const board2 = document.getElementById("board2");
+  const winner = document.getElementById("winner");
+  winner.innerHTML = `${player.name} Won!`;
   restart.addEventListener("click", () => {
     modal.close();
     board1.innerHTML = "";
@@ -68,9 +70,9 @@ function renderWinner() {
   modal.showModal();
 }
 
-function checkWin(player) {
-  if (player.gameboard.placedShips.every((ship) => ship.isSunk())) {
-    renderWinner();
+function checkWin(opponent, player) {
+  if (opponent.gameboard.placedShips.every((ship) => ship.isSunk())) {
+    renderWinner(player);
   }
 }
 
@@ -88,7 +90,7 @@ async function renderComputerAttack(player1, player2) {
   while (switchTurn === 1) {
     switchTurn = player2.pcAttack(player1);
     playerRender(player1);
-    checkWin(player1);
+    checkWin(player1, player2);
   }
   player2.endTurn(player1);
 }
@@ -96,7 +98,7 @@ async function renderComputerAttack(player1, player2) {
 function renderPlayerAttack(player1, player2, x, y) {
   const switchTurn = player1.attack(player2, [x, y]);
   enemyRender(player2);
-  checkWin(player2);
+  checkWin(player2, player1);
   if (switchTurn === 0) {
     player1.endTurn(player2);
     renderComputerAttack(player1, player2);
