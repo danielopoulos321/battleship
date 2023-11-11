@@ -44,7 +44,7 @@ body{
 }
 
 .ship{
-    background-color: black;
+    background-color: rgb(141, 138, 138);
 }
 
 .ship-hit{
@@ -53,4 +53,25 @@ body{
 
 .miss{
     background-color: aqua;
+}
+
+.drag-container-vertical{
+    display: flex;
+    flex-direction: column;
+}
+
+.drag-container-horizontal{
+    display: flex;
+}
+
+.drag-ship{
+    width: 30px;
+    height: 30px;
+    border: 1px solid black;
+    background-color: grey;
+    cursor: move;
+}
+
+.cell-p1--over{
+    background-color: green;
 }
