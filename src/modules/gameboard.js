@@ -27,8 +27,8 @@ export default class Gameboard {
   }
 
   placeShip(shipName, length, coords, horizontal) {
-    const x = coords[0];
-    const y = coords[1];
+    const x = Number(coords[0]);
+    const y = Number(coords[1]);
     if (this.isValidPlacement(length, x, y, horizontal)) {
       const ship = new Ship(length, shipName);
       this.placedShips.push(ship);
@@ -55,14 +55,14 @@ export default class Gameboard {
 
   isValidPlacement(length, x, y, horizontal) {
     if (horizontal) {
-      if (x + length > 9) return false;
+      if (x + length > 10) return false;
       for (let i = 0; i < length; i += 1) {
         if (this.board[x + i][y].shipName !== null) {
           return false;
         }
       }
     } else {
-      if (y + length > 9) return false;
+      if (y + length > 10) return false;
       for (let i = 0; i < length; i += 1) {
         if (this.board[x][y + i].shipName !== null) {
           return false;
