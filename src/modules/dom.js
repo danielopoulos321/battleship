@@ -1,4 +1,6 @@
-import initGame from "./game";
+import { initGame, p1, p2 } from "./game";
+
+initGame();
 
 function playerRender(player1) {
   document.querySelectorAll(".cell-p1").forEach((e, j) => {
@@ -53,17 +55,21 @@ function enemyRender(player2) {
   });
 }
 
+function resetBoard() {
+  const board1 = document.getElementById("board1");
+  const board2 = document.getElementById("board2");
+  board1.innerHTML = "";
+  board2.innerHTML = "";
+}
+
 function renderWinner(player) {
   const modal = document.querySelector("[data-modal");
   const restart = document.getElementById("restart");
-  const board1 = document.getElementById("board1");
-  const board2 = document.getElementById("board2");
   const winner = document.getElementById("winner");
   winner.innerHTML = `${player.name} Won!`;
   restart.addEventListener("click", () => {
     modal.close();
-    board1.innerHTML = "";
-    board2.innerHTML = "";
+    resetBoard();
     // eslint-disable-next-line no-use-before-define
     boardRender();
   });
@@ -85,7 +91,7 @@ function delay(ms) {
 }
 
 async function renderComputerAttack(player1, player2) {
-  await delay(700);
+  await delay(500);
   let switchTurn = 1;
   while (switchTurn === 1) {
     switchTurn = player2.pcAttack(player1);
@@ -105,17 +111,14 @@ function renderPlayerAttack(player1, player2, x, y) {
   }
 }
 
-export default function boardRender() {
-  const players = initGame();
-  const player1 = players.player;
-  const player2 = players.computer;
+function boardRender() {
   for (let i = 0; i < 10; i += 1) {
     const row = document.createElement("div");
     row.classList.add("row");
     row.setAttribute("id", `p1-row${i}`);
     document.getElementById("board1").appendChild(row);
 
-    player1.gameboard.board[i].forEach((e, j) => {
+    p1.gameboard.board[i].forEach((e, j) => {
       const cell = document.createElement("div");
       cell.classList.add("cell-p1");
       cell.setAttribute("id", `p1-row${i}-cell${j}`);
@@ -123,7 +126,7 @@ export default function boardRender() {
     });
   }
 
-  playerRender(player1);
+  playerRender(p1);
 
   for (let i = 0; i < 10; i += 1) {
     const row = document.createElement("div");
@@ -131,7 +134,7 @@ export default function boardRender() {
     row.setAttribute("id", `p2-row${i}`);
     document.getElementById("board2").appendChild(row);
 
-    player2.gameboard.board[i].forEach((e, j) => {
+    p2.gameboard.board[i].forEach((e, j) => {
       const cell = document.createElement("div");
       cell.classList.add("cell-p2");
       cell.setAttribute("id", `p2-row${i}-cell${j}`);
@@ -139,12 +142,14 @@ export default function boardRender() {
       cell.clicked = false;
 
       cell.addEventListener("click", () => {
-        if (!player1.turn) return;
+        if (!p1.turn) return;
         if (!cell.clicked) {
-          renderPlayerAttack(player1, player2, i, j);
+          renderPlayerAttack(p1, p2, i, j);
           cell.clicked = true;
         }
       });
     });
   }
 }
+
+export { boardRender, resetBoard };
