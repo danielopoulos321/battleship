@@ -75,3 +75,8 @@ body{
 .cell-p1--over{
     background-color: green;
 }
+
+.blurry{
+    filter: blur(5px);
+    pointer-events: none; 
+}
