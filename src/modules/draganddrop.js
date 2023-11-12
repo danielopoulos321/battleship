@@ -1,5 +1,5 @@
 import { p1 } from "./game";
-import { boardRender, resetBoard } from "./dom";
+import { boardRender, resetBoard, toggleBlur } from "./dom";
 
 let clickedOffset;
 
@@ -54,6 +54,7 @@ function handleDrop(e) {
     document.getElementById(shipId).remove();
     resetBoard();
     boardRender();
+    toggleBlur();
     // eslint-disable-next-line no-use-before-define
     prepareTargetBoard();
     return true;
@@ -125,3 +126,7 @@ export default function initPlayerShips() {
     renderShip(ship.shipName, ship.length);
   });
 }
+
+document.addEventListener("restarted", () => {
+  initPlayerShips();
+});
