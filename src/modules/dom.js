@@ -2,6 +2,7 @@ import { initGame, p1, p2 } from "./game";
 
 initGame();
 
+const randomPlacementButton = document.getElementById("randomPlacement");
 function playerRender(player1) {
   document.querySelectorAll(".cell-p1").forEach((e, j) => {
     let x;
@@ -75,6 +76,7 @@ function renderWinner(player) {
     boardRender();
     const restartEvent = new CustomEvent("restarted");
     document.dispatchEvent(restartEvent);
+    randomPlacementButton.style.display = "block";
   });
   modal.showModal();
 }
@@ -166,5 +168,13 @@ function boardRender() {
     });
   }
 }
+
+randomPlacementButton.addEventListener("click", () => {
+  p1.pcGenerateFleet();
+  playerRender(p1);
+  document.getElementById("ships").innerHTML = "";
+  toggleBlur();
+  randomPlacementButton.style.display = "none";
+});
 
 export { boardRender, resetBoard, toggleBlur };
