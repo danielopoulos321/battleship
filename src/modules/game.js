@@ -1,10 +1,14 @@
+/* eslint-disable import/no-mutable-exports */
 import Player from "./player";
 
-export default function initGame() {
-  const player = new Player("You");
-  const computer = new Player("Enemy");
-  player.pcGenerateFleet();
-  computer.pcGenerateFleet();
-  player.takeTurn();
-  return { player, computer };
+let p1;
+let p2;
+
+function initGame() {
+  p1 = new Player("You");
+  p2 = new Player("Enemy");
+  p2.pcGenerateFleet();
+  p1.takeTurn();
 }
+
+export { initGame, p1, p2 };
