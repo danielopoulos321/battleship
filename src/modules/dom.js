@@ -70,8 +70,11 @@ function renderWinner(player) {
   restart.addEventListener("click", () => {
     modal.close();
     resetBoard();
+    initGame();
     // eslint-disable-next-line no-use-before-define
     boardRender();
+    const restartEvent = new CustomEvent("restarted");
+    document.dispatchEvent(restartEvent);
   });
   modal.showModal();
 }
@@ -111,6 +114,16 @@ function renderPlayerAttack(player1, player2, x, y) {
   }
 }
 
+function toggleBlur() {
+  const enemyBoard = document.getElementById("board2");
+  const shipDiv = document.getElementById("ships");
+  if (shipDiv.innerHTML === "") {
+    enemyBoard.classList.remove("blurry");
+  } else {
+    enemyBoard.classList.add("blurry");
+  }
+}
+
 function boardRender() {
   for (let i = 0; i < 10; i += 1) {
     const row = document.createElement("div");
@@ -128,11 +141,13 @@ function boardRender() {
 
   playerRender(p1);
 
+  const enemyBoard = document.getElementById("board2");
+  enemyBoard.classList.add("blurry");
   for (let i = 0; i < 10; i += 1) {
     const row = document.createElement("div");
     row.classList.add("row");
     row.setAttribute("id", `p2-row${i}`);
-    document.getElementById("board2").appendChild(row);
+    enemyBoard.appendChild(row);
 
     p2.gameboard.board[i].forEach((e, j) => {
       const cell = document.createElement("div");
@@ -152,4 +167,4 @@ function boardRender() {
   }
 }
 
-export { boardRender, resetBoard };
+export { boardRender, resetBoard, toggleBlur };
