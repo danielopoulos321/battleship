@@ -4,9 +4,10 @@ import { boardRender, resetBoard, toggleBlur } from "./dom";
 let clickedOffset;
 
 const ships = [
-  { shipName: "destroyer", length: 4 },
-  { shipName: "cargo", length: 3 },
-  { shipName: "cruiser", length: 2 },
+  { shipName: "carrier", length: 5 },
+  { shipName: "cargo", length: 4 },
+  { shipName: "cruiser", length: 3 },
+  { shipName: "patrol", length: 3 },
   { shipName: "tugboat", length: 2 },
 ];
 
