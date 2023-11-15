@@ -9,19 +9,24 @@
 </head>
 <body>
     <div id="header">
-        <div>BattleShip</div>
-        <button>Start Game</button>
+        <div id="logo">BattleShip</div>
+
     </div>
     <div id="boards">
-        <div id="container">
+        <div class="container">
             <div>Enemy's Board</div>
             <div id="board2"></div>
         </div>
-        <div id="container">
+        <div class="container">
             <div>Your Board</div>
             <div id="board1"></div>
         </div>
-        <div id="ships"></div>
+        <div class="ship-container">
+            <div>Place Your Ships</div>
+            <button id="randomPlacement" class="button">Place Ships Randomly</button>
+            <div id="ships"></div>
+
+        </div>
     </div>
     <dialog data-modal>
         <div id="winner">Winner</div>
