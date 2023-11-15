@@ -77,6 +77,8 @@ function renderWinner(player) {
     const restartEvent = new CustomEvent("restarted");
     document.dispatchEvent(restartEvent);
     randomPlacementButton.style.display = "block";
+    const shipDiv = document.querySelector(".ship-container");
+    shipDiv.style.display = "flex";
   });
   modal.showModal();
 }
@@ -118,8 +120,10 @@ function renderPlayerAttack(player1, player2, x, y) {
 
 function toggleBlur() {
   const enemyBoard = document.getElementById("board2");
-  const shipDiv = document.getElementById("ships");
-  if (shipDiv.innerHTML === "") {
+  const shipDiv = document.querySelector(".ship-container");
+  const ships = document.getElementById("ships");
+  if (ships.innerHTML === "") {
+    shipDiv.style.display = "none";
     enemyBoard.classList.remove("blurry");
   } else {
     enemyBoard.classList.add("blurry");
@@ -172,9 +176,11 @@ function boardRender() {
 randomPlacementButton.addEventListener("click", () => {
   p1.pcGenerateFleet();
   playerRender(p1);
-  document.getElementById("ships").innerHTML = "";
+  const shipDiv = document.querySelector(".ship-container");
+  const ships = document.getElementById("ships");
+  ships.innerHTML = "";
+  shipDiv.style.display = "none";
   toggleBlur();
-  randomPlacementButton.style.display = "none";
 });
 
 export { boardRender, resetBoard, toggleBlur };
