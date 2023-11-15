@@ -35,9 +35,10 @@ export default class Player {
   }
 
   pcGenerateFleet() {
-    this.generateShip("destroyer", 4);
-    this.generateShip("cargo", 3);
-    this.generateShip("cruiser", 2);
+    this.generateShip("carrier", 5);
+    this.generateShip("cargo", 4);
+    this.generateShip("cruiser", 3);
+    this.generateShip("patrol", 3);
     this.generateShip("tugboat", 2);
   }
 
