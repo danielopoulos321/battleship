@@ -3,6 +3,7 @@ import { initGame, p1, p2 } from "./game";
 initGame();
 
 const randomPlacementButton = document.getElementById("randomPlacement");
+const restartButton = document.getElementById("restart");
 function playerRender(player1) {
   document.querySelectorAll(".cell-p1").forEach((e, j) => {
     let x;
@@ -63,23 +64,23 @@ function resetBoard() {
   board2.innerHTML = "";
 }
 
+restartButton.addEventListener("click", () => {
+  const modal = document.querySelector("[data-modal");
+  modal.close();
+  resetBoard();
+  initGame();
+  // eslint-disable-next-line no-use-before-define
+  boardRender();
+  const restartEvent = new CustomEvent("restarted");
+  document.dispatchEvent(restartEvent);
+  const shipDiv = document.querySelector(".ship-container");
+  shipDiv.style.display = "flex";
+});
+
 function renderWinner(player) {
   const modal = document.querySelector("[data-modal");
-  const restart = document.getElementById("restart");
   const winner = document.getElementById("winner");
   winner.innerHTML = `${player.name} Won!`;
-  restart.addEventListener("click", () => {
-    modal.close();
-    resetBoard();
-    initGame();
-    // eslint-disable-next-line no-use-before-define
-    boardRender();
-    const restartEvent = new CustomEvent("restarted");
-    document.dispatchEvent(restartEvent);
-    randomPlacementButton.style.display = "block";
-    const shipDiv = document.querySelector(".ship-container");
-    shipDiv.style.display = "flex";
-  });
   modal.showModal();
 }
 
