@@ -35,7 +35,7 @@ function handleDrop(e) {
   const shipName = shipInfo[0];
   const shipLength = Number(shipInfo[1]);
 
-  const container = document.querySelector(".draggable-container");
+  const container = document.getElementById(shipId);
   const coords = e.target.id.match(/row(\d+)-cell(\d+)/).slice(1);
   let direction = false;
   if (container.classList.contains("drag-container-vertical")) {
