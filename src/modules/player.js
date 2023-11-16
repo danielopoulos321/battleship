@@ -1,8 +1,10 @@
 import Gameboard from "./gameboard";
+import BotAI from "./botAI";
 
 export default class Player {
   constructor(name) {
     this.gameboard = new Gameboard();
+    this.ai = new BotAI();
     this.turn = false;
     this.name = name;
   }
@@ -27,9 +29,22 @@ export default class Player {
 
   pcAttack(player) {
     let success = -1;
+    let coords;
     while (success < 0) {
-      const coords = this.randomPos();
-      success = player.gameboard.receiveAttack(coords);
+      if (typeof this.ai.lastSuccessfulHit === "undefined") {
+        coords = this.randomPos();
+        success = player.gameboard.receiveAttack(coords);
+      } else {
+        coords = this.ai.aiMove(this.gameboard.board);
+        if (coords === false) {
+          coords = this.randomPos();
+        }
+        success = player.gameboard.receiveAttack(coords);
+      }
+
+      if (success > 0) {
+        this.ai.setSuccessfulHit(coords);
+      }
     }
     return success;
   }
