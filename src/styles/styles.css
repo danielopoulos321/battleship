@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&display=swap');
 :root{
     --ship-color: #b3d3ea;
-    --cross-icon: url('cross.svg') center/90% no-repeat;
-    --dot-icon: url('dot.svg') center/90% no-repeat;
+    --cross-icon: url('assets/cross.svg') center/90% no-repeat;
+    --dot-icon: url('assets/dot.svg') center/90% no-repeat;
     --font-fira: 'Fira Code', monospace;
 }
 
