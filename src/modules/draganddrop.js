@@ -3,14 +3,6 @@ import { boardRender, resetBoard, toggleBlur } from "./dom";
 
 let clickedOffset;
 
-const ships = [
-  { shipName: "carrier", length: 5 },
-  { shipName: "cargo", length: 4 },
-  { shipName: "cruiser", length: 3 },
-  { shipName: "patrol", length: 3 },
-  { shipName: "tugboat", length: 2 },
-];
-
 function cellClickHandler(e) {
   clickedOffset = e.target.dataset.offset;
 }
@@ -123,7 +115,7 @@ function renderShip(shipName, length) {
 }
 
 export default function initPlayerShips() {
-  ships.forEach((ship) => {
+  p1.ships.forEach((ship) => {
     renderShip(ship.shipName, ship.length);
   });
 }

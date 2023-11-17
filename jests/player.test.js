@@ -40,6 +40,6 @@ describe("Player", () => {
 
   test("generates random pc fleet", () => {
     player2.pcGenerateFleet();
-    expect(player2.gameboard.placedShips.length).toBe(4);
+    expect(player2.gameboard.placedShips.length).toBe(5);
   });
 });

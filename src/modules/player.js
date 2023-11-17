@@ -9,6 +9,14 @@ export default class Player {
     this.name = name;
   }
 
+  ships = [
+    { shipName: "carrier", length: 5 },
+    { shipName: "cargo", length: 4 },
+    { shipName: "cruiser", length: 3 },
+    { shipName: "patrol", length: 3 },
+    { shipName: "tugboat", length: 2 },
+  ];
+
   takeTurn() {
     this.turn = true;
   }
@@ -50,11 +58,18 @@ export default class Player {
   }
 
   pcGenerateFleet() {
-    this.generateShip("carrier", 5);
-    this.generateShip("cargo", 4);
-    this.generateShip("cruiser", 3);
-    this.generateShip("patrol", 3);
-    this.generateShip("tugboat", 2);
+    const shipsLeft = this.ships.filter(
+      (ship) =>
+        // Check if a ship with the same shipName already exists in the fleet
+        !this.gameboard.placedShips.some(
+          (existingShip) => existingShip.shipName === ship.shipName
+        )
+    );
+
+    // Generate ships for the remaining ones
+    shipsLeft.forEach((ship) => {
+      this.generateShip(ship.shipName, ship.length);
+    });
   }
 
   generateShip(shipName, length) {
