@@ -1,7 +1,3 @@
-// iterate through cells top/right/left/bottom for first valid
-// if none are valid move on to random spot
-// when constructing a new player, BotAi is attached to have access to board state
-// for dependant class, pass in the gameboard array
 export default class BotAI {
   constructor() {
     this.lastSuccessfulHit = undefined;

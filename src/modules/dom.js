@@ -99,9 +99,10 @@ function delay(ms) {
 }
 
 async function renderComputerAttack(player1, player2) {
-  await delay(500);
   let switchTurn = 1;
   while (switchTurn === 1) {
+    // eslint-disable-next-line no-await-in-loop
+    await delay(500);
     switchTurn = player2.pcAttack(player1);
     playerRender(player1);
     checkWin(player1, player2);
