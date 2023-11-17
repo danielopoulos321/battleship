@@ -25,7 +25,7 @@ export default class BotAI {
       return [x - 1, y];
     }
 
-    if (x - 1 >= 0 && gameboard[x][y - 1].hit === false) {
+    if (y - 1 >= 0 && gameboard[x][y - 1].hit === false) {
       this.clearSuccessfulHit();
       return [x, y - 1];
     }
